@@ -18,6 +18,7 @@ declare -A CONFIG=(
   [OPKSSH_ENABLED]="true"
   [CREDENTIAL_VAULT_ENABLED]="true"
   [COMPLIANCE_REPORTING]="true"
+  [FAIL2BAN_ENABLED]="true"
   [SECURITY_EMAIL]=""
 )
 

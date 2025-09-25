@@ -7,7 +7,7 @@ setup_firewall() {
 
   # Install required packages
   install_package "ufw"
-  install_package "iptables-persistent"
+  # install_package "iptables-persistent"
 
   # Basic UFW configuration
   ufw default deny incoming || handle_error "Failed to set UFW default incoming policy" 15
@@ -56,7 +56,7 @@ setup_firewall() {
     ufw --force enable || handle_error "Failed to enable UFW" 19
 
     # Verify firewall status
-    if !ufw status verbose | grep -q "Status: active"; then
+    if ! ufw status verbose | grep -q "Status: active"; then
       handle_error "Firewall is not active after configuration" 20
     fi
   fi

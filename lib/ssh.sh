@@ -4,6 +4,10 @@
 configure_ssh_hardening() {
   log INFO "Applying advanced SSH hardening..."
 
+  if ! command -v sshd; then
+    handle_error "sshd command not found, system is not set to receive ssh connections" 1
+  fi
+
   # Backup original SSH config
   cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
 
@@ -68,8 +72,8 @@ EOF
 ##############################################################
 #                                                            #
 #  Unauthorized access to this system is strictly prohibited #
-#  All access attempts are logged and monitored             #
-#  Violators will be prosecuted to the fullest extent       #
+#  All access attempts are logged and monitored              #
+#  Violators will be prosecuted to the fullest extent        #
 #                                                            #
 ##############################################################
 EOF
@@ -91,4 +95,4 @@ EOF
   systemctl restart ssh || handle_error "Failed to restart SSH service" 51
 
   log INFO "SSH hardening completed successfully"
-} 
+}

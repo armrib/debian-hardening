@@ -15,12 +15,11 @@ setup_comprehensive_audit() {
 log_file = /var/log/audit/audit.log
 log_format = RAW
 log_group = adm
-priority_boost = 4
+# priority_boost = 4
 flush = INCREMENTAL_ASYNC
 freq = 50
 num_logs = 5
-disp_qos = lossy
-dispatcher = /sbin/audispd
+write_logs = yes
 name_format = NONE
 max_log_file = 8
 max_log_file_action = ROTATE
@@ -134,7 +133,7 @@ EOF
   service auditd restart || handle_error "Failed to restart audit daemon" 24
 
   # Verify audit is working
-  if !auditctl -l &>/dev/null; then
+  if ! auditctl -l &>/dev/null; then
     handle_error "Audit system is not functioning properly after configuration" 25
   fi
 
